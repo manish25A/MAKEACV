@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>CV Generator</title>
+
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js"></script>
+	<style>
+		@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+
+		*:focus {
+			outline: none;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			background: #ddd;
+			font-size: 16px;
+			color: #222;
+			font-family: "Roboto", sans-serif;
+			font-weight: 300;
+		}
+
+		#main-window {
+			position: relative;
+
+			margin: 5% auto;
+			width: 100%;
+			height: 800px;
+			background: #fff;
+			border-radius: 2px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+		}
+
+		#download_pdf {
+			bottom: 0%;
+		}
+
+		.left {
+			position: absolute;
+			top: 0;
+			left: 0;
+			box-sizing: border-box;
+			border-style: dotted;
+			border-color: black;
+			background-color: skyblue;
+			padding: 40px;
+			width: 50%;
+			height: 800px;
+		}
+
+		h1 {
+			margin: 0 0 20px 0;
+			font-weight: 300;
+			font-size: 28px;
+		}
+
+		input[type="date"] {
+			margin-left: 15px;
+		}
+
+		input[type="text"],
+		input[type="date"] {
+			display: block;
+			box-sizing: border-box;
+			margin-bottom: 20px;
+			padding: 4px;
+			width: 220px;
+			height: 32px;
+			border: none;
+			border-bottom: 1px solid #aaa;
+			font-family: "Roboto", sans-serif;
+			font-weight: 400;
+			font-size: 15px;
+			transition: 0.2s ease;
+		}
+
+		input[type="text"]:focus {
+			border-bottom: 2px solid #16a085;
+			color: #16a085;
+			transition: 0.5s ease;
+		}
+
+		.right {
+			position: absolute;
+			top: 0;
+			right: 0;
+			box-sizing: border-box;
+			border-style: dotted;
+			border-color: black;
+			padding: 40px;
+			width: 50%;
+			height: 800px;
+			background-size: cover;
+			background-position: center;
+			border-radius: 0 2px 2px 0;
+		}
+
+		.right .loginwith {
+			display: block;
+			margin-bottom: 40px;
+			font-size: 28px;
+			color: #fff;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>CV GENERATOR</h1>
+		<p>Create CV in easy and professional way!!</p>
+		<div id="main-window">
+			<div class="left">
+				<div class="form-group row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="name" placeholder="Name" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="phno" placeholder="Phone Number" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<p>Date of birth:</p>
+					<input type="date" class="form-control" class="form-control" id="dob" />
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="education" placeholder="Education Level" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="intrest" placeholder="Intrested In" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="award" placeholder="Awards" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="skill" placeholder="Major skill" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="exp" placeholder="Experience in major skill" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="recactivites" placeholder="Recent activities" />
+					</div>
+				</div>
+
+				<fieldset class="form-group">
+					<div class="row">
+						<legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+						<div class="col-sm-10">
+							<input type="radio" name="gen" value="Male" checked /> Male
+							<br />
+							<input type="radio" name="gen" value="Female" /> Female
+						</div>
+					</div>
+				</fieldset>
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<button class="btn btn-primary" onclick="myfunction()">
+							Generate Your CV
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="page_content">
+				<div class="right">
+					<h1>
+						<div class="form-group row">
+							<label id="#"></label>Print your CV from the button below
+						</div>
+					</h1>
+					<section>
+						<div id="mntl-sc-block-callout-body_1-0-2"
+							class="comp mntl-sc-block-callout-body mntl-text-block">
+							<p>
+								<strong>
+									<h2 id="name1"></h2>
+								</strong>
+
+								<p id="cell1"></p>
+								<p id="dob1"></p>
+								<p id="mygen"></p>
+							</p>
+							<p><strong> INTERESTS</strong></p>
+							<p id="intrest1">
+							</p>
+							<p><strong>CURRENT EDUCATION</strong></p>
+							<p id="edu1"></p>
+							<p><strong> SKILLS</strong></p>
+							<p id="mskill1">
+
+							</p>
+
+							<p><strong>PAST EXPERIENCE</strong></p>
+							<p id="exp1">
+							</p><p id="recact1"></p>
+
+							<p><strong>HONORS / AWARDS</strong></p>
+							<p id="awards1">
+
+							</p>
+						</div>
+					</section>
+					<div class="form-group row">
+						<div align="center">
+							<h1 align="center" id="download_pdf" class="glyphicon glyphicon-download"
+								style="cursor: pointer" title="Click to Download Page as PDF"></h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		myfunction = () => {
+			// getting from html
+			var name2 = document.getElementById("name").value;
+			var phoneno2 = document.getElementById("phno").value;
+			var dob2 = document.getElementById("dob").value;
+			var education2 = document.getElementById("education").value;
+			var intrest2 = document.getElementById("intrest").value;
+			var award2 = document.getElementById("award").value;
+			var skill2 = document.getElementById("skill").value;
+			var exp2 = document.getElementById("exp").value;
+			var recact2 = document.getElementById("recactivites").value;
+			var g2 = document.querySelector('input[name="gen"]:checked').value;
+
+			//passing to html
+			document.getElementById("name1").innerHTML = name2;
+			document.getElementById("cell1").innerHTML = phoneno2;
+			document.getElementById("dob1").innerHTML = dob2;
+			document.getElementById("intrest1").innerHTML = intrest2;
+			document.getElementById("edu1").innerHTML = education2;
+			document.getElementById("mskill1").innerHTML = skill2;
+			document.getElementById("awards1").innerHTML = award2;
+			document.getElementById("exp1").innerHTML = exp2;
+			document.getElementById("recact1").innerHTML = recact2;
+			document.getElementById("mygen").innerHTML = g2;
+		};
+
+		$(document).ready(function () {
+			$("#download_pdf").click(function () {
+				var pdf = new jsPDF("p", "pt", "letter"),
+					source = $("#page_content")[0],
+					specialElementHandlers = {
+						"#bypassme": function (element, renderer) {
+							return true;
+						},
+					};
+
+				margins = {
+					top: 60,
+					bottom: 60,
+					left: 40,
+					width: 522,
+				};
+
+				pdf.fromHTML(
+					source,
+					margins.left,
+					margins.top, {
+						width: margins.width,
+						elementHandlers: specialElementHandlers,
+					},
+					function (dispose) {
+						pdf.save("download_pdf.pdf");
+					},
+					margins
+				);
+			});
+		});
+	</script>
+</body>
+
+</html>
